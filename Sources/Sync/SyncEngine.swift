@@ -331,7 +331,10 @@ final class SyncEngine {
             } catch APIError.notFound {
                 finish(alreadyGone: true); return false // already gone — our delete is satisfied
             }
-            if Self.unchangedSinceBase(current, mutation.baseSnapshot) {
+            let unchanged = mutation.kind == .timer
+                ? LocalStore.timerStartUnchanged(current, mutation.baseSnapshot)
+                : Self.unchangedSinceBase(current, mutation.baseSnapshot)
+            if unchanged {
                 try await client.deleteRaw(path: mutation.kind.path, id: serverID)
                 finish(alreadyGone: false)
                 return true
@@ -478,25 +481,12 @@ final class SyncEngine {
         for mutation in (try? context.fetch(descriptor)) ?? [] { context.delete(mutation) }
     }
 
-    /// Server-computed, read-only fields that drift without any client edit and so must be
-    /// excluded from conflict detection. A running timer's `duration` advances every second,
-    /// so comparing it against a base snapshot would flag a false conflict on every push
-    /// (e.g. stopping a timer). The client never writes these, so ignoring them can't mask a
-    /// real edit.
-    static let volatileFields: Set<String> = ["duration"]
-
-    /// Conflict-detection equality: like ``jsonEqual`` but ignoring server-computed volatile
-    /// fields, so an otherwise-unchanged record never looks "changed" just because time passed.
+    /// Conflict-detection equality: ignores server-computed volatile fields (a running timer's
+    /// `duration`) and compares dates by instant, so an unchanged record never looks "changed"
+    /// just because time passed or the server wrote a date in another offset.
     static func unchangedSinceBase(_ current: Data?, _ base: Data?) -> Bool {
-        jsonEqual(stripVolatile(current), stripVolatile(base))
-    }
-
-    private static func stripVolatile(_ data: Data?) -> Data? {
-        guard let data,
-              var obj = try? JSONSerialization.jsonObject(with: data) as? [String: Any]
-        else { return data }
-        for key in volatileFields { obj.removeValue(forKey: key) }
-        return (try? JSONSerialization.data(withJSONObject: obj)) ?? data
+        guard let current, let base else { return false }
+        return LocalStore.payloadsEquivalent(current, base)
     }
 
     /// Order-independent deep equality of two JSON object payloads.

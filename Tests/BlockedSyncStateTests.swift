@@ -585,6 +585,38 @@ final class BlockedSyncStateTests: XCTestCase {
         XCTAssertNil(activity.payloadObject["timer"])
     }
 
+    /// The pre-delete GET returns the timer's start in UTC where the pull had the user's offset,
+    /// and someone renamed it. Neither is a reason to keep it running: the DELETE goes out (#176).
+    func testStopDeletesTimerDespiteDateFormatAndRename() async throws {
+        let timer = syncedTimer()
+        repo.stopTimer(timer)
+        let activity = log(timer)
+        let current = data(["id": 42, "child": 1, "name": "Renamed", "start": "2024-01-15T15:00:00Z"])
+        StubTransport.reset([.init(status: 200, body: String(decoding: current, as: UTF8.self)),
+                             .init(status: 204, body: ""), .init(status: 201, body: Self.created)])
+
+        await engine.pushPending()
+
+        XCTAssertEqual(StubTransport.requests.map(\.method), ["GET", "DELETE", "POST"])
+        XCTAssertTrue(mutations().isEmpty)
+        XCTAssertEqual(activity.serverID, 77)
+        XCTAssertTrue(try context.fetch(FetchDescriptor<ConflictRecord>()).isEmpty)
+    }
+
+    /// Another device restarted the timer since the pull: deleting it would lose that, so the
+    /// DELETE becomes a conflict instead.
+    func testStopConflictsWhenTimerWasRestarted() async throws {
+        let timer = syncedTimer()
+        repo.stopTimer(timer)
+        let current = data(["id": 42, "child": 1, "name": "Tummy time", "start": "2024-01-15T16:30:00Z"])
+        StubTransport.reset([.init(status: 200, body: String(decoding: current, as: UTF8.self))])
+
+        await engine.pushPending()
+
+        XCTAssertEqual(StubTransport.requests.map(\.method), ["GET"])
+        XCTAssertEqual(try context.fetch(FetchDescriptor<ConflictRecord>()).count, 1)
+    }
+
     /// Logged before the DELETE went out, and the timer turns out to be gone: another device got
     /// there first, so the create parks as a likely duplicate instead of going out.
     func testTimerAlreadyGoneParksTheLoggedCreate() async {
@@ -637,8 +669,8 @@ final class BlockedSyncStateTests: XCTestCase {
         XCTAssertEqual(json(create!.payload)["start"] as? String, iso)
     }
 
-    /// The widget's one-tap Stop pushes from the extension: DELETE first, so a 404 parks the create
-    /// before ``TimerPush/pushCreate`` would send it.
+    /// The widget's one-tap Stop pushes from the extension: the timer first, so a 404 parks the
+    /// create before ``TimerPush/pushCreate`` would send it.
     func testWidgetStopPushesDeleteFirstAndHonoursA404() async {
         let timer = syncedTimer()
         let timerID = timer.localID
@@ -649,9 +681,45 @@ final class BlockedSyncStateTests: XCTestCase {
         await TimerPush.pushTimerDelete(localID: timerID, in: context, client: StubTransport.makeClient())
         await TimerPush.pushCreate(localID: activity.localID, in: context, client: StubTransport.makeClient())
 
-        XCTAssertEqual(StubTransport.requests.map(\.method), ["DELETE"])
+        XCTAssertEqual(StubTransport.requests.map(\.method), ["GET"])
         XCTAssertEqual(mutations().map(\.op), [.create])
         XCTAssertEqual(mutations().first?.isStaleTimer, true)
+    }
+
+    /// The widget's Stop deletes a timer whose start came back in another offset (#176).
+    func testWidgetStopDeletesDespiteDateFormat() async {
+        let timer = syncedTimer()
+        let timerID = timer.localID
+        repo.stopTimer(timer)
+        let current = data(["id": 42, "child": 1, "name": "Tummy time", "start": "2024-01-15T15:00:00Z"])
+        StubTransport.reset([.init(status: 200, body: String(decoding: current, as: UTF8.self)),
+                             .init(status: 204, body: "")])
+
+        await TimerPush.pushTimerDelete(localID: timerID, in: context, client: StubTransport.makeClient())
+
+        XCTAssertEqual(StubTransport.requests.map(\.method), ["GET", "DELETE"])
+        XCTAssertTrue(mutations().isEmpty)
+    }
+
+    /// The widget's Stop on a timer another device restarted leaves the DELETE queued, unclaimed,
+    /// and the app's next sync raises the conflict.
+    func testWidgetStopLeavesRestartedTimerForTheApp() async throws {
+        let timer = syncedTimer()
+        let timerID = timer.localID
+        repo.stopTimer(timer)
+        let current = data(["id": 42, "child": 1, "name": "Tummy time", "start": "2024-01-15T16:30:00Z"])
+        StubTransport.reset([.init(status: 200, body: String(decoding: current, as: UTF8.self))])
+
+        await TimerPush.pushTimerDelete(localID: timerID, in: context, client: StubTransport.makeClient())
+
+        XCTAssertEqual(StubTransport.requests.map(\.method), ["GET"])
+        let delete = mutations().first
+        XCTAssertEqual(delete?.op, .delete)
+        XCTAssertNil(delete?.claimedAt)
+
+        await engine.pushPending()
+        XCTAssertEqual(StubTransport.requests.map(\.method), ["GET", "GET"])
+        XCTAssertEqual(try context.fetch(FetchDescriptor<ConflictRecord>()).count, 1)
     }
 
     // MARK: Image-upload queue
