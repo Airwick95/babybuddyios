@@ -35,11 +35,20 @@ final class CustomHeaderTests: XCTestCase {
         }
     }
 
-    func testAnEmptyNameOrValueIsAnErrorNotSkipped() {
-        for row in [CustomHeader(name: "", value: "x"), CustomHeader(name: "X-Gate", value: "  ")] {
+    func testAMissingNameIsAnErrorNotSkipped() {
+        for row in [CustomHeader(name: "", value: "x"), CustomHeader(name: " \u{200B}", value: " ")] {
             XCTAssertThrowsError(try CustomHeader.validated([row])) {
-                XCTAssertEqual($0 as? CustomHeader.Problem, .empty)
+                XCTAssertEqual($0 as? CustomHeader.Problem, .missingName)
+                XCTAssertEqual(($0 as? CustomHeader.Problem)?.message,
+                               "A header is missing its name. Add one or remove the header.")
             }
+        }
+    }
+
+    func testAMissingValueNamesTheHeader() {
+        XCTAssertThrowsError(try CustomHeader.validated([CustomHeader(name: " test ", value: " \u{FEFF}")])) {
+            XCTAssertEqual($0 as? CustomHeader.Problem, .missingValue("test"))
+            XCTAssertEqual(($0 as? CustomHeader.Problem)?.message, "test needs a value. Add one or remove the header.")
         }
     }
 
@@ -54,6 +63,23 @@ final class CustomHeaderTests: XCTestCase {
     func testAValueWithALineBreakIsRejected() {
         XCTAssertThrowsError(try CustomHeader.validated([CustomHeader(name: "X-Gate", value: "a\r\nHost: evil")])) {
             XCTAssertEqual($0 as? CustomHeader.Problem, .invalidValue("X-Gate"))
+        }
+    }
+
+    func testInvisibleFormatCharactersAreStripped() throws {
+        let rows = try CustomHeader.validated([
+            CustomHeader(name: "\u{FEFF}CF-Access-Client-Id", value: "\u{FEFF}abc\u{200B}123.access\u{200E}"),
+            CustomHeader(name: "X-Gate", value: "\u{2060}o\u{00AD}pen\u{200F} "),
+        ])
+        XCTAssertEqual(rows, [CustomHeader(name: "CF-Access-Client-Id", value: "abc123.access"),
+                              CustomHeader(name: "X-Gate", value: "open")])
+    }
+
+    func testAnEmbeddedLineBreakIsStillRejectedAfterStripping() {
+        for value in ["\u{200B}a\nb", "a\u{FEFF}\rb", "a\u{0}b"] {
+            XCTAssertThrowsError(try CustomHeader.validated([CustomHeader(name: "X-Gate", value: value)])) {
+                XCTAssertEqual($0 as? CustomHeader.Problem, .invalidValue("X-Gate"))
+            }
         }
     }
 
