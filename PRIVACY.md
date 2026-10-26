@@ -65,4 +65,4 @@ We may update this policy as the app evolves. Material changes will be reflected
 
 ## Contact
 
-Questions about privacy? Email [hello@babybuddy.app](mailto:hello@babybuddy.app) or open an issue on [GitHub](https://github.com/kguy18/babybuddyios/issues).
+Questions about privacy? Email [hello@babybuddy.app](mailto:hello@babybuddy.app) or use the feedback site at [feedback.babybuddy.app](https://feedback.babybuddy.app).
