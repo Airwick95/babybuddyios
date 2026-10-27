@@ -55,6 +55,7 @@ struct ForecastCue: Equatable, Identifiable, Sendable {
 struct ForecastSnapshot: Equatable, Sendable {
     let generatedAt: Date
     let cues: [ForecastCue]
+    var freshUntil: Date? = nil
     var ready: [ForecastEstimate] { cues.compactMap { $0.state == .ready ? $0.estimate : nil } }
     func expires(lastSync: Date?) -> Date {
         let deadlines = [generatedAt.addingTimeInterval(15 * 60), ready.map(\.window.end).min(),
@@ -110,7 +111,7 @@ struct ForecastEngine {
             cues.append(napCue(sleeps: sleeps, now: now))
         }
         cues.append(eventCue(.change, records: changes, now: now))
-        return ForecastSnapshot(generatedAt: now, cues: cues)
+        return ForecastSnapshot(generatedAt: now, cues: cues, freshUntil: lastSync.addingTimeInterval(Self.maximumCacheAge))
     }
 
     private func unique(_ records: [ForecastRecord]) -> [ForecastRecord] {

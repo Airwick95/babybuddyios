@@ -110,6 +110,7 @@ targets:
           - group.com.kurtisguy.BabyBuddy
         keychain-access-groups:
           - $(AppIdentifierPrefix)com.kurtisguy.BabyBuddy
+          - $(AppIdentifierPrefix)com.kurtisguy.BabyBuddy.Forecast
 
   BabyBuddyWidgets:
     type: app-extension

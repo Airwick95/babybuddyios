@@ -17,6 +17,11 @@ struct ForecastSettingsView: View {
                 Text(forecastText("Feeding intervals run from start to start. Nap intervals run from the end of one sleep to the start of a logged nap. Wake-up estimates use previous sleep durations when a sleep timer is running."))
                 Text(forecastText("Displayed windows summarize past entries. They are not a prescribed schedule, a probability, or a prediction validated for medical use."))
             }
+            Section {
+                NavigationLink(forecastAPIText("Own API")) { ForecastAPISettingsView() }
+            } footer: {
+                Text(forecastAPIText("Optional comparison using a service and API key you supply yourself."))
+            }
         }
         .navigationTitle(forecastText("Activity estimates"))
         .navigationBarTitleDisplayMode(.inline)

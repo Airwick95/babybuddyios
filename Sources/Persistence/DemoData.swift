@@ -25,6 +25,7 @@ enum DemoData {
         SharedDefaults.suite.removePersistentDomain(forName: LocalStore.appGroupID)
         LocalStore.wipe(in: context)
         KeychainStore.clear()
+        ForecastAPIStore.clear()
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         UNUserNotificationCenter.current().removeAllDeliveredNotifications()
         if environment["BB_DEMO"] == "1" { seedIfNeeded(into: context) }

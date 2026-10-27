@@ -1,0 +1,550 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "AI may produce a different estimate, but has not been shown to be more accurate. It cannot bypass missing-data checks or extend the calculated window. API estimates expire after five minutes or a data change.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AI may produce a different estimate, but has not been shown to be more accurate. It cannot bypass missing-data checks or extend the calculated window. API estimates expire after five minutes or a data change."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "KI kann eine andere Schätzung liefern. Eine höhere Genauigkeit ist bisher nicht belegt. Sie kann Prüfungen auf fehlende Daten nicht umgehen und den berechneten Zeitraum nicht erweitern. API-Schätzungen verfallen nach fünf Minuten oder bei einer Datenänderung."
+          }
+        }
+      }
+    },
+    "API comparison": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API comparison"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API-Vergleich"
+          }
+        }
+      }
+    },
+    "API key, if required": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API key, if required"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API-Schlüssel, falls erforderlich"
+          }
+        }
+      }
+    },
+    "API sharing is off. Calculated estimates work without it.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API sharing is off. Calculated estimates work without it."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die API-Datenfreigabe ist aus. Berechnete Schätzungen funktionieren auch ohne sie."
+          }
+        }
+      }
+    },
+    "Allow sharing activity patterns with this service": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Allow sharing activity patterns with this service"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktivitätsmuster für diesen Dienst freigeben"
+          }
+        }
+      }
+    },
+    "Check your HTTPS endpoint, model and saved API configuration.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Check your HTTPS endpoint, model and saved API configuration."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prüfe die HTTPS-Adresse, das Modell und die gespeicherte API-Konfiguration."
+          }
+        }
+      }
+    },
+    "Configure own API": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Configure own API"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eigene API einrichten"
+          }
+        }
+      }
+    },
+    "Data sharing": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Data sharing"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Datenfreigabe"
+          }
+        }
+      }
+    },
+    "Enable data sharing in Own API settings before requesting an estimate.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enable data sharing in Own API settings before requesting an estimate."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktiviere die Datenfreigabe unter „Eigene API“, bevor du eine Schätzung anforderst."
+          }
+        }
+      }
+    },
+    "Enter a complete OpenAI-compatible Chat Completions HTTPS URL and a model supported by your service. JSON-object responses are required. Use max_tokens only if your service requires that older field. No provider is selected automatically.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enter a complete OpenAI-compatible Chat Completions HTTPS URL and a model supported by your service. JSON-object responses are required. Use max_tokens only if your service requires that older field. No provider is selected automatically."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gib die vollständige HTTPS-Adresse einer OpenAI-kompatiblen Chat-Completions-API und ein unterstütztes Modell an. Antworten im JSON-Objektformat sind erforderlich. Verwende max_tokens nur, wenn dein Dienst dieses ältere Feld benötigt. Es wird kein Anbieter automatisch ausgewählt."
+          }
+        }
+      }
+    },
+    "Experimental model estimate, not a care schedule. Follow your baby's cues and your care plan.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Experimental model estimate, not a care schedule. Follow your baby's cues and your care plan."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Experimentelle Modellschätzung, kein Betreuungszeitplan. Beachte die Signale deines Babys und euren Betreuungsplan."
+          }
+        }
+      }
+    },
+    "HTTPS endpoint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "HTTPS endpoint"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "HTTPS-Adresse"
+          }
+        }
+      }
+    },
+    "Model": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Model"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modell"
+          }
+        }
+      }
+    },
+    "Only rounded intervals, elapsed minutes and calculated window limits are sent. Names, birth dates, notes, photos, child IDs, exact event dates and Baby Buddy credentials are excluded. These patterns can still reveal health information.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Only rounded intervals, elapsed minutes and calculated window limits are sent. Names, birth dates, notes, photos, child IDs, exact event dates and Baby Buddy credentials are excluded. These patterns can still reveal health information."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Übertragen werden nur gerundete Abstände, vergangene Minuten und berechnete Zeitgrenzen. Namen, Geburtsdaten, Notizen, Fotos, Kinder-IDs, genaue Ereigniszeitpunkte und Baby-Buddy-Zugangsdaten bleiben auf dem Gerät. Die Muster können dennoch Rückschlüsse auf Gesundheitsinformationen erlauben."
+          }
+        }
+      }
+    },
+    "Optional comparison using a service and API key you supply yourself.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Optional comparison using a service and API key you supply yourself."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Optionaler Vergleich mit einem Dienst und API-Schlüssel, die du selbst angibst."
+          }
+        }
+      }
+    },
+    "Own API": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Own API"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eigene API"
+          }
+        }
+      }
+    },
+    "Remove API configuration": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remove API configuration"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API-Konfiguration entfernen"
+          }
+        }
+      }
+    },
+    "Request API estimate": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Request API estimate"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API-Schätzung anfordern"
+          }
+        }
+      }
+    },
+    "Requesting estimate…": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Requesting estimate…"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schätzung wird angefordert…"
+          }
+        }
+      }
+    },
+    "Requests run only when you tap Request API estimate on Home. Your provider may charge fees and retain data under its own policy. A request to disable storage is sent, but the app cannot guarantee the provider's retention behavior.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Requests run only when you tap Request API estimate on Home. Your provider may charge fees and retain data under its own policy. A request to disable storage is sent, but the app cannot guarantee the provider's retention behavior."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anfragen starten nur, wenn du auf der Startseite „API-Schätzung anfordern“ antippst. Dein Anbieter kann Gebühren berechnen und Daten nach seinen eigenen Regeln speichern. Die Anfrage fordert ihn auf, die Speicherung zu deaktivieren. Die App kann sein Speicherverhalten jedoch nicht garantieren."
+          }
+        }
+      }
+    },
+    "Save API configuration": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Save API configuration"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API-Konfiguration speichern"
+          }
+        }
+      }
+    },
+    "Saved on this device. Enable data sharing below to use it.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saved on this device. Enable data sharing below to use it."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Auf diesem Gerät gespeichert. Aktiviere unten die Datenfreigabe, um die API zu verwenden."
+          }
+        }
+      }
+    },
+    "The API estimate has expired. Request a new one if needed.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The API estimate has expired. Request a new one if needed."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die API-Schätzung ist abgelaufen. Fordere bei Bedarf eine neue an."
+          }
+        }
+      }
+    },
+    "The configuration could not be saved in Keychain.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The configuration could not be saved in Keychain."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Konfiguration konnte nicht im Schlüsselbund gespeichert werden."
+          }
+        }
+      }
+    },
+    "The local evidence is not sufficient for an API estimate.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The local evidence is not sufficient for an API estimate."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die lokalen Daten reichen für eine API-Schätzung nicht aus."
+          }
+        }
+      }
+    },
+    "The model did not provide an estimate.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The model did not provide an estimate."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Das Modell hat keine Schätzung abgegeben."
+          }
+        }
+      }
+    },
+    "The response did not meet the prediction limits and was discarded.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The response did not meet the prediction limits and was discarded."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Antwort hielt die Grenzen für Schätzungen nicht ein und wurde verworfen."
+          }
+        }
+      }
+    },
+    "The service could not be reached. Your calculated estimates still work.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The service could not be reached. Your calculated estimates still work."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Dienst ist nicht erreichbar. Die berechneten Schätzungen funktionieren weiterhin."
+          }
+        }
+      }
+    },
+    "The service rejected the request.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The service rejected the request."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Dienst hat die Anfrage abgelehnt."
+          }
+        }
+      }
+    },
+    "The service returned too much data. The response was discarded.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The service returned too much data. The response was discarded."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Dienst hat zu viele Daten zurückgegeben. Die Antwort wurde verworfen."
+          }
+        }
+      }
+    },
+    "Token limit parameter": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Token limit parameter"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parameter für die Token-Grenze"
+          }
+        }
+      }
+    },
+    "Your service": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your service"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dein Dienst"
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}
