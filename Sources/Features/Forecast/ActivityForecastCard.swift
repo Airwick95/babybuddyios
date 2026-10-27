@@ -9,7 +9,10 @@ struct ActivityForecastCard: View {
     var body: some View {
         if enabled {
             TimelineView(.periodic(from: .now, by: 60)) { timeline in
-                let snapshot = ForecastCache.snapshot(entities, childID: childID, lastSync: lastSync, now: timeline.date)
+                // A save can arrive between ticks. Its end time must not appear to be in the
+                // future merely because TimelineView's last scheduled date is a minute old.
+                let now = max(timeline.date, Date.now)
+                let snapshot = ForecastCache.snapshot(entities, childID: childID, lastSync: lastSync, now: now)
                 ForecastSummaryView(snapshot: snapshot)
             }
         }
