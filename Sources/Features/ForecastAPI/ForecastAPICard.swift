@@ -12,6 +12,7 @@ struct ForecastAPICard: View {
     @State private var busy = false
     @State private var task: Task<Void, Never>?
     @State private var service = ""
+    @State private var expired = false
 
     var body: some View {
         if enabled {
@@ -32,7 +33,7 @@ struct ForecastAPICard: View {
                         }
                         if busy { ProgressView(forecastAPIText("Requesting estimate…")) }
                         if let failure { Text(failure.message).font(.caption).foregroundStyle(.secondary) }
-                        if let result, timeline.date < result.expiresAt {
+                        if let result, max(timeline.date, Date.now) < result.expiresAt {
                             if result.predictions.isEmpty {
                                 Text(forecastAPIText("The model did not provide an estimate."))
                             }
@@ -43,7 +44,7 @@ struct ForecastAPICard: View {
                                 }
                                 .accessibilityElement(children: .combine)
                             }
-                        } else if result != nil {
+                        } else if result != nil || expired {
                             Text(forecastAPIText("The API estimate has expired. Request a new one if needed."))
                                 .font(.caption).foregroundStyle(.secondary)
                         }
@@ -58,6 +59,14 @@ struct ForecastAPICard: View {
             .onChange(of: lastSync) { _, _ in reset() }
             .onChange(of: consent) { _, _ in reset() }
             .onChange(of: phase) { _, phase in if phase != .active { reset() } }
+            .task(id: result?.expiresAt) {
+                guard let deadline = result?.expiresAt else { return }
+                do { try await Task.sleep(for: .seconds(max(0, deadline.timeIntervalSinceNow))) }
+                catch { return }
+                guard !Task.isCancelled else { return }
+                result = nil
+                expired = true
+            }
             .onDisappear { reset() }
         }
     }
@@ -68,7 +77,7 @@ struct ForecastAPICard: View {
             "\($0.kind?.rawValue ?? "unknown")|\($0.start.timeIntervalSince1970)|\($0.stopped)"
         }
     }
-    private func reset() { task?.cancel(); task = nil; result = nil; failure = nil; busy = false }
+    private func reset() { task?.cancel(); task = nil; result = nil; failure = nil; busy = false; expired = false }
 
     private func request() {
         reset()
